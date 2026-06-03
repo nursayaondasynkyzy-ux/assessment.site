@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Assessment Score Sheet</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: #e8f5e9;
+    margin: 20px;
+}
+
+.container{
+    max-width: 1400px;
+    margin: auto;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    background: #2e7d32;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+.info-box{
+    background: white;
+    border-left: 8px solid #43a047;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.5;
+    border-radius: 8px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th{
+    background: #388e3c;
+    color: white;
+    padding: 12px;
+    font-size: 18px;
+}
+
+td{
+    border: 1px solid #c8e6c9;
+    padding: 10px;
+    text-align: center;
+    font-size: 17px;
+}
+
+input[type="number"]{
+    width: 70px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+input[type="text"]{
+    width: 180px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.final-score{
+    font-weight: bold;
+    color: #1b5e20;
+    font-size: 18px;
+}
+
+.summary{
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 8px solid #2e7d32;
+    font-size: 22px;
+    font-weight: bold;
+    color: #1b5e20;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Speaking Assessment Score Sheet</h1>
+
+<div class="info-box">
+<b>Scoring Procedure</b><br><br>
+
+Each student receives a score from 0–10 in four categories:
+<ul>
+<li>Fluency and Coherence</li>
+<li>Lexical Resource</li>
+<li>Grammatical Range</li>
+<li>Interactional Effectiveness</li>
+</ul>
+
+<b>Final Score Formula:</b><br>
+(Fluency + Lexical Resource + Grammar + Interaction) ÷ 4
+</div>
+
+<table id="scoreTable">
+<thead>
+<tr>
+<th>No.</th>
+<th>Student Name</th>
+<th>Fluency & Coherence</th>
+<th>Lexical Resource</th>
+<th>Grammatical Range</th>
+<th>Interactional Effectiveness</th>
+<th>Final Score</th>
+</tr>
+</thead>
+
+<tbody>
+
+<script>
+for(let i=1;i<=14;i++){
+document.write(`
+<tr>
+<td>${i}</td>
+<td><input type="text" placeholder="Student ${i}"></td>
+
+<td><input type="number" min="0" max="10" value="0" oninput="calculate()"></td>
+
+<td><input type="number" min="0" max="10" value="0" oninput="calculate()"></td>
+
+<td><input type="number" min="0" max="10" value="0" oninput="calculate()"></td>
+
+<td><input type="number" min="0" max="10" value="0" oninput="calculate()"></td>
+
+<td class="final-score">0.00</td>
+</tr>
+`);
+}
+</script>
+
+</tbody>
+</table>
+
+<div class="summary">
+Group Mean Score: <span id="groupMean">0.00</span>
+</div>
+
+</div>
+
+<script>
+function calculate(){
+
+const rows = document.querySelectorAll("#scoreTable tbody tr");
+
+let totalGroupScore = 0;
+let studentCount = rows.length;
+
+rows.forEach(row=>{
+
+const inputs = row.querySelectorAll('input[type="number"]');
+
+let fluency = Number(inputs[0].value)||0;
+let lexical = Number(inputs[1].value)||0;
+let grammar = Number(inputs[2].value)||0;
+let interaction = Number(inputs[3].value)||0;
+
+let finalScore =
+(fluency + lexical + grammar + interaction) / 4;
+
+row.querySelector(".final-score").textContent =
+finalScore.toFixed(2);
+
+totalGroupScore += finalScore;
+});
+
+let mean = totalGroupScore / studentCount;
+
+document.getElementById("groupMean").textContent =
+mean.toFixed(2);
+}
+
+calculate();
+</script>
+
+</body>
+</html>
