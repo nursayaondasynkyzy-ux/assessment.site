@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Natural Disasters Flashcards</title>
+
+<style>
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Comic Sans MS',sans-serif;
+
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+
+    radial-gradient(circle at top, rgba(255,255,255,0.35), transparent 40%),
+
+    linear-gradient(to bottom, #06203d, #020b17);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    overflow-x:hidden;
+
+}
+
+h1{
+
+    color:#ffe600;
+
+    font-size:60px;
+
+    margin-bottom:50px;
+
+    text-shadow:0 0 10px rgba(255,255,255,0.4);
+
+    letter-spacing:3px;
+
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:35px;
+
+    width:100%;
+
+    max-width:1300px;
+
+}
+
+.card{
+
+    width:220px;
+
+    height:320px;
+
+    perspective:1000px;
+
+    margin:auto;
+
+}
+
+.inner{
+
+    width:100%;
+
+    height:100%;
+
+    position:relative;
+
+    transition:transform 0.8s;
+
+    transform-style:preserve-3d;
+
+    cursor:pointer;
+
+}
+
+.card:hover .inner{
+
+    transform:rotateY(180deg);
+
+}
+
+.front,
+
+.back{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    border-radius:18px;
+
+    backface-visibility:hidden;
+
+    overflow:hidden;
+
+    border:8px solid #ff9d00;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+
+}
+
+/* BACK CLOSED SIDE */
+
+.front{
+
+    background:
+
+    linear-gradient(135deg,#ffb703,#fb8500);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+}
+
+.front h2{
+
+    color:white;
+
+    font-size:35px;
+
+    text-align:center;
+
+    padding:20px;
+
+    text-shadow:2px 2px 5px rgba(0,0,0,0.3);
+
+}
+
+.front span{
+
+    font-size:80px;
+
+}
+
+/* FRONT OPEN SIDE */
+
+.back{
+
+    background:white;
+
+    transform:rotateY(180deg);
+
+    padding:15px;
+
+}
+
+.disaster-title{
+
+    text-align:center;
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+    color:#ff7b00;
+
+}
+
+.scene{
+
+    position:relative;
+
+    width:100%;
+
+    height:230px;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    background:#dff3ff;
+
+}
+
+/* FLOOD */
+
+.flood .water{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:45%;
+
+    background:#4db8ff;
+
+}
+
+.flood .house{
+
+    position:absolute;
+
+    bottom:65px;
+
+    left:30px;
+
+    width:70px;
+
+    height:55px;
+
+    background:#ffb347;
+
+}
+
+.flood .roof{
+
+    position:absolute;
+
+    bottom:110px;
+
+    left:20px;
+
+    width:0;
+
+    height:0;
+
+    border-left:45px solid transparent;
+
+    border-right:45px solid transparent;
+
+    border-bottom:35px solid #d35400;
+
+}
+
+.flood .cloud{
+
+    position:absolute;
+
+    width:70px;
+
+    height:35px;
+
+    background:#bbb;
+
+    border-radius:50px;
+
+    top:20px;
+
+    left:20px;
+
+}
+
+.flood .rain{
+
+    position:absolute;
+
+    width:3px;
+
+    height:18px;
+
+    background:#4db8ff;
+
+    top:60px;
+
+    left:50px;
+
+    box-shadow:
+
+    20px 10px #4db8ff,
+
+    40px -5px #4db8ff,
+
+    60px 5px #4db8ff,
+
+    90px 0 #4db8ff;
+
+}
+
+/* TORNADO */
+
+.tornado .sky{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#d7f2ff;
+
+}
+
+.tornado .twister{
+
+    position:absolute;
+
+    left:70px;
+
+    top:20px;
+
+    width:90px;
+
+    height:180px;
+
+    background:conic-gradient(from 90deg,#444,#999,#444);
+
+    clip-path:polygon(30% 0%,70% 0%,100% 100%,0% 100%);
+
+    border-radius:50%;
+
+}
+
+.tornado .home{
+
+    position:absolute;
+
+    bottom:20px;
+
+    right:20px;
+
+    width:70px;
+
+    height:50px;
+
+    background:#c97c37;
+
+}
+
+.tornado .roof{
+
+    position:absolute;
+
+    bottom:65px;
+
+    right:10px;
+
+    width:0;
+
+    height:0;
+
+    border-left:45px solid transparent;
+
+    border-right:45px solid transparent;
+
+    border-bottom:30px solid #8b4513;
+
+}
+
+/* VOLCANO */
+
+.volcano .mountain{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:45px;
+
+    width:0;
+
+    height:0;
+
+    border-left:65px solid transparent;
+
+    border-right:65px solid transparent;
+
+    border-bottom:170px solid #7a3e12;
+
+}
+
+.volcano .lava{
+
+    position:absolute;
+
+    bottom:130px;
+
+    left:95px;
+
+    width:20px;
+
+    height:70px;
+
+    background:orange;
+
+    border-radius:20px;
+
+}
+
+.volcano .smoke{
+
+    position:absolute;
+
+    top:20px;
+
+    left:50px;
+
+    width:120px;
+
+    height:60px;
+
+    background:#ffb366;
+
+    border-radius:50%;
+
+}
+
+/* EARTHQUAKE */
+
+.earthquake .ground{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:60px;
+
+    background:#7d5a50;
+
+}
+
+.earthquake .building{
+
+    position:absolute;
+
+    bottom:60px;
+
+    left:65px;
+
+    width:80px;
+
+    height:120px;
+
+    background:#f4a261;
+
+    transform:rotate(-10deg);
+
+}
+
+.earthquake .crack{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:110px;
+
+    width:8px;
+
+    height:70px;
+
+    background:black;
+
+    transform:skewX(-25deg);
+
+}
+
+/* TSUNAMI */
+
+.tsunami .wave{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:80%;
+
+    background:#00aaff;
+
+    border-radius:50% 50% 0 0;
+
+}
+
+.tsunami .foam{
+
+    position:absolute;
+
+    top:20px;
+
+    left:30px;
+
+    width:140px;
+
+    height:40px;
+
+    background:white;
+
+    border-radius:50%;
+
+}
+
+/* WILDFIRE */
+
+.wildfire .forest{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:100px;
+
+    background:#2d6a4f;
+
+}
+
+.wildfire .fire{
+
+    position:absolute;
+
+    bottom:70px;
+
+    left:70px;
+
+    width:80px;К
+
+    height:120px;
+
+    background:radial-gradient(circle,yellow,orange,red);
+
+    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+
+}
+
+/* DROUGHT */
+
+.drought .sun{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    width:70px;
+
+    height:70px;
+
+    background:yellow;
+
+    border-radius:50%;
+
+}
+
+.drought .land{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:90px;
+
+    background:#c58b39;
+
+}
+
+.drought .cracks{
+
+    position:absolute;
+
+    bottom:20px;
+
+    left:40px;
+
+    width:120px;
+
+    height:2px;
+
+    background:black;
+
+    box-shadow:
+
+    20px 15px black,
+
+    40px -10px black,
+
+    70px 20px black;
+
+}
+
+/* AVALANCHE */
+
+.avalanche .mountain{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:20px;
+
+    width:0;
+
+    height:0;
+
+    border-left:80px solid transparent;
+
+    border-right:80px solid transparent;
+
+    border-bottom:180px solid #8d99ae;
+
+}
+
+.avalanche .snow{
+
+    position:absolute;
+
+    bottom:80px;
+
+    left:40px;
+
+    width:130px;
+
+    height:70px;
+
+    background:white;
+
+    border-radius:50%;
+
+}
+
+/* HURRICANE */
+
+.hurricane{
+
+    background:#cdefff;
+
+    position:relative;
+
+}
+
+.hurricane .storm{
+
+    position:absolute;
+
+    top:30px;
+
+    left:45px;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    border:16px solid #6c757d;
+
+    border-top-color:transparent;
+
+    border-right-color:#adb5bd;
+
+    transform:rotate(25deg);
+
+}
+
+.hurricane .palm{
+
+    position:absolute;
+
+    bottom:20px;
+
+    left:100px;
+
+    width:12px;
+
+    height:100px;
+
+    background:#8b5e34;
+
+    transform:rotate(12deg);
+
+}
+
+.hurricane .leaf1,
+
+.hurricane .leaf2{
+
+    position:absolute;
+
+    width:70px;
+
+    height:18px;
+
+    background:#2d6a4f;
+
+    border-radius:20px;
+
+}
+
+.hurricane .leaf1{
+
+    bottom:110px;
+
+    left:90px;
+
+    transform:rotate(-25deg);
+
+}
+
+.hurricane .leaf2{
+
+    bottom:105px;
+
+    left:70px;
+
+    transform:rotate(20deg);
+
+}
+
+/* LANDSLIDE */
+
+.landslide{
+
+    background:#d8f3dc;
+
+    position:relative;
+
+}
+
+.landslide .hill{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:20px;
+
+    width:0;
+
+    height:0;
+
+    border-left:90px solid transparent;
+
+    border-right:90px solid transparent;
+
+    border-bottom:180px solid #8d6e63;
+
+}
+
+.landslide .rock{
+
+    position:absolute;
+
+    background:#495057;
+
+    border-radius:50%;
+
+}
+
+.landslide .rock1{
+
+    width:35px;
+
+    height:35px;
+
+    bottom:60px;
+
+    left:110px;
+
+}
+
+.landslide .rock2{
+
+    width:28px;
+
+    height:28px;
+
+    bottom:40px;
+
+    left:145px;
+
+}
+
+.landslide .rock3{
+
+    width:22px;
+
+    height:22px;
+
+    bottom:85px;
+
+    left:135px;
+
+}
+
+@media(max-width:600px){
+
+    h1{
+
+        font-size:38px;
+
+        text-align:center;
+
+    }
+
+    .card{
+
+        width:190px;
+
+        height:280px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>NATURAL DISASTERS</h1>
+
+<div class="cards">
+
+<!-- FLOOD -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🌊</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">FLOOD</div>
+
+<div class="scene flood">
+
+<div class="cloud"></div>
+
+<div class="rain"></div>
+
+<div class="roof"></div>
+
+<div class="house"></div>
+
+<div class="water"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TORNADO -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🌪️</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">TORNADO</div>
+
+<div class="scene tornado">
+
+<div class="sky"></div>
+
+<div class="twister"></div>
+
+<div class="roof"></div>
+
+<div class="home"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VOLCANIC ERUPTION -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🌋</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">VOLCANIC ERUPTION</div>
+
+<div class="scene volcano">
+
+<div class="smoke"></div>
+
+<div class="mountain"></div>
+
+<div class="lava"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- EARTHQUAKE -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🏚️</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">EARTHQUAKE</div>
+
+<div class="scene earthquake">
+
+<div class="building"></div>
+
+<div class="ground"></div>
+
+<div class="crack"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TSUNAMI -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🌊</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">TSUNAMI</div>
+
+<div class="scene tsunami">
+
+<div class="wave"></div>
+
+<div class="foam"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- WILDFIRE -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🔥</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">WILDFIRE</div>
+
+<div class="scene wildfire">
+
+<div class="forest"></div>
+
+<div class="fire"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DROUGHT -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>☀️</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">DROUGHT</div>
+
+<div class="scene drought">
+
+<div class="sun"></div>
+
+<div class="land"></div>
+
+<div class="cracks"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- AVALANCHE -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🏔️</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">AVALANCHE</div>
+
+<div class="scene avalanche">
+
+<div class="mountain"></div>
+
+<div class="snow"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HURRICANE -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>🌀</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">HURRICANE</div>
+
+<div class="scene hurricane">
+
+<div class="storm"></div>
+
+<div class="palm"></div>
+
+<div class="leaf1"></div>
+
+<div class="leaf2"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- LANDSLIDE -->
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<span>⛰️</span>
+
+<h2>CLICK</h2>
+
+</div>
+
+<div class="back">
+
+<div class="disaster-title">LANDSLIDE</div>
+
+<div class="scene landslide">
+
+<div class="hill"></div>
+
+<div class="rock rock1"></div>
+
+<div class="rock rock2"></div>
+
+<div class="rock rock3"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
